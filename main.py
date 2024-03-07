@@ -40,11 +40,21 @@ class Paciente:
     def set_id(self, id):
         self.__id = id
     def agregar_implante(self, implante):
-        self.__implantes.add(implante)
+        if self.verificar(implante):
+            self.__implantes.add(implante)
+            return True
+        return False
     def eliminar_implante(self, implante):
-        self.__implantes.discard(implante)
+        if self.verificar(implante):
+            self.__implantes.discard(implante)
+            return True
+        return False
+    def verificar(self, implante):
+        if implante in self.__implantes:
+            return True
+        return False
 
-class Marcapasos:
+class Marcapasos(Implante):
     def __init__(self) -> None:
         self.__num_electrodos = None
         self.__es_inalambrico = None
@@ -63,7 +73,7 @@ class Marcapasos:
     def set_frecuencia_estimulacion(self, frecuencia):
         self.__frecuencia_estimulacion = frecuencia
 
-class StentCoronario:
+class StentCoronario(Implante):
     def __init__(self) -> None:
         self.__longitud = None
         self.__diametro = None
@@ -82,7 +92,7 @@ class StentCoronario:
     def set_material(self, material):
         self.__material = material
 
-class ImplanteDental:
+class ImplanteDental(Implante):
     def __init__(self) -> None:
         self.__forma = None
         self.__sistema_fijacion = None
@@ -101,7 +111,7 @@ class ImplanteDental:
     def set_material(self, material):
         self.__material = material
 
-class ImplanteCadera:
+class ImplanteCadera(Implante):
     def __init__(self) -> None:
         self.__forma = None
         self.__sistema_fijacion = None
@@ -120,7 +130,7 @@ class ImplanteCadera:
     def set_material(self, material):
         self.__material = material
 
-class ImplanteRodilla:
+class ImplanteRodilla(Implante):
     def __init__(self) -> None:
         self.__material = None
         self.__tipo_fijacion = None
@@ -139,7 +149,9 @@ class ImplanteRodilla:
     def set_tamaño(self, tamaño):
         self.__tamaño = tamaño
 
-
+class Sistema:
+    def __init__(self) -> None:
+        pass
 
 
    
