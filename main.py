@@ -62,3 +62,46 @@ class Marcapasos:
         self.__es_inalambrico = es
     def set_frecuencia_estimulacion(self, frecuencia):
         self.__frecuencia_estimulacion = frecuencia
+
+class StentCoronario:
+    def __init__(self) -> None:
+        self.__longitud = None
+        self.__diametro = None
+        self.__material = None
+
+    def ver_longitud(self):
+        return self.__longitud
+    def ver_diametro(self):
+        return self.__diametro
+    def ver_material(self):
+        return self.__material
+    def set_longitud(self, longitud):
+        self.__longitud = longitud
+    def set_diametro(self, diametro):
+        self.__diametro = diametro
+    def set_material(self, material):
+        self.__material = material
+
+class ImplanteRodilla:
+    def __init__(self) -> None:
+        self.__material = None
+        self.__tipo_fijacion = None
+        self.__tamaño = None
+    
+    def ver_material(self):
+        return self.__material
+    def ver_tipo_fijacion(self):
+        return self.__tipo_fijacion
+    def ver_tamaño(self):
+        return self.__tamaño
+    def set_material(self, material):
+        self.__material = material
+    def set_tipo_fijacion(self, tipo):
+        self.__tipo_fijacion = tipo
+    def set_tamaño(self, tamaño):
+        self.__tamaño = tamaño
+
+
+
+
+   
