@@ -82,6 +82,44 @@ class StentCoronario:
     def set_material(self, material):
         self.__material = material
 
+class ImplanteDental:
+    def __init__(self) -> None:
+        self.__forma = None
+        self.__sistema_fijacion = None
+        self.__material = None
+    
+    def ver_forma(self):
+        return self.__forma
+    def ver_sistema_fijacion(self):
+        return self.__sistema_fijacion
+    def ver_material(self):
+        return self.__material
+    def set_forma(self, forma):
+        self.__forma = forma
+    def set_sistema_fijacion(self, fijacion):
+        self.__sistema_fijacion = fijacion
+    def set_material(self, material):
+        self.__material = material
+
+class ImplanteCadera:
+    def __init__(self) -> None:
+        self.__forma = None
+        self.__sistema_fijacion = None
+        self.__material = None
+    
+    def ver_forma(self):
+        return self.__forma
+    def ver_sistema_fijacion(self):
+        return self.__sistema_fijacion
+    def ver_material(self):
+        return self.__material
+    def set_forma(self, forma):
+        self.__forma = forma
+    def set_sistema_fijacion(self, fijacion):
+        self.__sistema_fijacion = fijacion
+    def set_material(self, material):
+        self.__material = material
+
 class ImplanteRodilla:
     def __init__(self) -> None:
         self.__material = None
