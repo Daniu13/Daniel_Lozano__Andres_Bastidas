@@ -174,4 +174,8 @@ class Sistema:
         #     for implante in implantes:
         #         lista_implantes.append(implante)
                 
-   
+def main():
+    pass
+
+if __name__ == '__main__':
+    main()
