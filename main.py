@@ -37,19 +37,21 @@ class Paciente:
 
     def ver_id(self):
         return self.__id
+    def ver_implantes(self):
+        return self.__implantes
     def set_id(self, id):
         self.__id = id
     def agregar_implante(self, implante):
-        if self.verificar(implante):
+        if self.verificar_implante(implante):
             self.__implantes.add(implante)
             return True
         return False
     def eliminar_implante(self, implante):
-        if self.verificar(implante):
+        if self.verificar_implante(implante):
             self.__implantes.discard(implante)
             return True
         return False
-    def verificar(self, implante):
+    def verificar_implante(self, implante):
         if implante in self.__implantes:
             return True
         return False
@@ -151,7 +153,25 @@ class ImplanteRodilla(Implante):
 
 class Sistema:
     def __init__(self) -> None:
-        pass
+        self.__inventario = dict()
 
-
+    def verificar_paciente(self, paciente):
+        if paciente in self.__inventario:
+            return True
+        return False
+    def añadir_paciente(self, paciente):
+        if not self.verificar_paciente(paciente):
+            self.__inventario[paciente] = paciente.ver_implantes()
+    def eliminar_paciente(self, paciente):
+        if self.verificar_paciente(paciente):
+            self.__inventario.pop(paciente)
+    def ver_inventario(self):
+        conjuntos_implantes = [paciente.ver_implantes() for paciente in self.__inventario.values()]
+        lista_implantes = [implante for implantes in conjuntos_implantes for implante in implantes]
+        return lista_implantes
+        # lista_implantes = []
+        # for implantes in conjuntos_implantes:
+        #     for implante in implantes:
+        #         lista_implantes.append(implante)
+                
    
