@@ -233,21 +233,50 @@ class Sistema:
         #     for implante in implantes:
         #         lista_implantes.append(implante)
 
-
 def main():
     sistemita = Sistema()
     while True:
-        menu = int(
-            input(
+        menu = int(input(
                 """\nIngrese una opción: 
                        \n1- Ingresar implante 
                        \n2- Eliminar implante 
                        \n3- Editar implante 
                        \n4- Visualizar inventario
-                       \n6- Salir 
-                       \nUsted ingresó la opción: """
-            )
-        )
+                       \n5- Salir 
+                       \nUsted ingresó la opción: """))
+        if menu == 1:
+            que_tipo_implante = int(input(
+                """\nElija el tipo de implante:
+                        \n1- Marcapasos
+                        \n2- Stent coronario
+                        \n3- Implante de rodilla
+                        \n4- Implante dental
+                        \n5- Implante de cadera
+                        \nOpción: """))
+            fecha_implantacion = input("Fecha de implantación: ")
+            medico = input("Médico: ")
+            estado = input("Estado del implante: ")
+            fecha_revision = input("Fecha de revisión: ")
+            fecha_mantenimiento = input("Fecha de mantenimiento: ")
+            if que_tipo_implante == 1:
+                pass
+            elif que_tipo_implante == 2:
+                pass
+            elif que_tipo_implante == 3:
+                pass
+            elif que_tipo_implante == 4:
+                pass
+        elif menu == 2:
+            pass
+        elif menu == 3:
+            pass
+        elif menu == 4:
+            pass
+        elif menu == 5:
+            print("Saliendo del sistema...")
+            break
+        else:
+            print("Opción no válida, intente de nuevo")
 
 
 if __name__ == "__main__":
