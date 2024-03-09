@@ -259,13 +259,19 @@ def main():
             fecha_revision = input("Fecha de revisión: ")
             fecha_mantenimiento = input("Fecha de mantenimiento: ")
             if que_tipo_implante == 1:
-                pass
+                num_electrodos = int(input("Número de electrodos: "))
+                es_alambrico = int(input("1- Alámbrico\n2- Inalámbrico\nElija una opción: "))
+                frecuencia_estimulacion = float(input("Frecuencia de estimulación: ")) 
             elif que_tipo_implante == 2:
-                pass
+                longitud = float(input("Longitud: "))
+                diametro = float(input("Diámetro: "))
+                material = input("Material: ")
             elif que_tipo_implante == 3:
                 pass
-            elif que_tipo_implante == 4:
-                pass
+            elif que_tipo_implante == 4 or que_tipo_implante == 5:
+                forma = input("Forma: ")
+                sistema_fijacion = input("Sistema de fijación: ")
+                material = input("Material: ")
         elif menu == 2:
             pass
         elif menu == 3:
