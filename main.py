@@ -360,16 +360,47 @@ def main():
             if sistemita.verificar_implante(id_implante):
                 for paciente, implante in sistemita.ver_inventario():
                     if implante.ver_id_implante() == id_implante:
+                        new_fecha_implantacion = input("Nueva fecha de implantación: ")
+                        new_medico = input("Nuevo médico: ")
+                        new_estado = input("Nuevo estado del implante: ")
+                        new_fecha_revision = input("Nueva fecha de revisión: ")
+                        new_fecha_mantenimiento = input("Nueva fecha de mantenimiento: ")
+                        implante.set_fecha_implantacion(new_fecha_implantacion)
+                        implante.set_medico(new_medico)
+                        implante.set_estado(new_estado)
+                        implante.set_fecha_revision(new_fecha_revision)
+                        implante.set_fecha_mantenimiento(new_fecha_mantenimiento)
                         if isinstance(implante, Marcapasos):
-                            pass
+                            new_numero_electrodos = int(input("Nuevo número de electrodos: "))
+                            new_es_alambrico = int(input("¿Es alámbrico? (1: Sí, 0: No): "))
+                            new_frecuencia_estimulacion = float(input("Nueva frecuencia de estimulación: "))
+                            implante.set_num_eletrodos(new_numero_electrodos)
+                            implante.set_es_alambrico(new_es_alambrico)
+                            implante.set_frecuencia_estimulacion(new_frecuencia_estimulacion)
+                            print("Editado exitosamente.")
                         elif isinstance(implante, StentCoronario):
-                            pass
+                            new_longitud = float(input("Nueva longitud: "))
+                            new_diametro = float(input("¿Es alámbrico? (1: Sí, 0: No): "))
+                            new_material = input("Nuevo material: ")
+                            implante.set_longitud(new_longitud)
+                            implante.set_diametro(new_diametro)
+                            implante.set_material(new_material)
+                            print("Editado exitosamente.")
                         elif isinstance(implante, ImplanteRodilla):
-                            pass
-                        elif isinstance(implante, ImplanteDental):
-                            pass
-                        elif isinstance(implante, ImplanteCadera):
-                            pass
+                            new_material = input("Nuevo material: ")
+                            new_tipo_fijacion = input("Nuevo tipo de fijación: ")
+                            new_tamaño = float(input("Nuevo tamaño: "))
+                            implante.set_material(new_material)
+                            implante.set_tipo_fijacion(new_tipo_fijacion)
+                            implante.set_tamaño(new_tamaño)
+                            print("Editado exitosamente.")
+                        elif isinstance(implante, ImplanteDental) or isinstance(implante, ImplanteCadera):
+                            new_forma = input("Nueva forma: ")
+                            new_sistema_fijacion = input("Nuevo sistema de fijación: ")
+                            new_material = input("Nuevo material: ")
+                            implante.set_forma(new_forma)
+                            implante.set_sistema_fijacion(new_sistema_fijacion)
+                            implante.set_material(new_material)
         elif menu == 4:
             pass
         elif menu == 5:
