@@ -245,6 +245,9 @@ def main():
                        \n5- Salir 
                        \nUsted ingresó la opción: """))
         if menu == 1:
+            paciente = Paciente()
+            id_paciente = int(input("ID del paciente: "))
+            paciente.set_id(id_paciente)
             que_tipo_implante = int(input(
                 """\nElija el tipo de implante:
                         \n1- Marcapasos
@@ -260,18 +263,79 @@ def main():
             fecha_mantenimiento = input("Fecha de mantenimiento: ")
             if que_tipo_implante == 1:
                 num_electrodos = int(input("Número de electrodos: "))
-                es_alambrico = int(input("1- Alámbrico\n2- Inalámbrico\nElija una opción: "))
-                frecuencia_estimulacion = float(input("Frecuencia de estimulación: ")) 
+                es_alambrico = int(input("1- Alámbrico\n0- Inalámbrico\nElija una opción: "))
+                frecuencia_estimulacion = float(input("Frecuencia de estimulación: "))
+                marcapasos = Marcapasos()
+                marcapasos.set_fecha_implantacion(fecha_implantacion)
+                marcapasos.set_medico(medico)
+                marcapasos.set_estado(estado)
+                marcapasos.set_fecha_revision(fecha_revision)
+                marcapasos.set_fecha_mantenimiento(fecha_mantenimiento)
+                marcapasos.set_num_eletrodos(num_electrodos)
+                marcapasos.set_es_alambrico(es_alambrico)
+                marcapasos.set_frecuencia_estimulacion(frecuencia_estimulacion)
+                paciente.agregar_implante(marcapasos)
+                sistemita.añadir_paciente(paciente)
             elif que_tipo_implante == 2:
                 longitud = float(input("Longitud: "))
                 diametro = float(input("Diámetro: "))
                 material = input("Material: ")
+                stent_coronario = StentCoronario()
+                stent_coronario.set_fecha_implantacion(fecha_implantacion)
+                stent_coronario.set_medico(medico)
+                stent_coronario.set_estado(estado)
+                stent_coronario.set_fecha_revision(fecha_revision)
+                stent_coronario.set_fecha_mantenimiento(fecha_mantenimiento)
+                stent_coronario.set_longitud(longitud)
+                stent_coronario.set_diametro(diametro)
+                stent_coronario.set_material(material)
+                paciente.agregar_implante(stent_coronario)
+                sistemita.añadir_paciente(paciente)
             elif que_tipo_implante == 3:
-                pass
+                material = input("Material: ")
+                tipo_fijacion = input("Tipo de fijación: ")
+                tamaño = float(input("Tamaño: "))
+                implante_rodilla = ImplanteRodilla()
+                implante_rodilla.set_fecha_implantacion(fecha_implantacion)
+                implante_rodilla.set_medico(medico)
+                implante_rodilla.set_estado(estado)
+                implante_rodilla.set_fecha_revision(fecha_revision)
+                implante_rodilla.set_fecha_mantenimiento(fecha_mantenimiento)
+                implante_rodilla.set_tipo_fijacion(tipo_fijacion)
+                implante_rodilla.set_tamaño(tamaño)
+                paciente.agregar_implante(implante_rodilla)
+                sistemita.añadir_paciente(paciente)
             elif que_tipo_implante == 4 or que_tipo_implante == 5:
                 forma = input("Forma: ")
                 sistema_fijacion = input("Sistema de fijación: ")
                 material = input("Material: ")
+                if que_tipo_implante == 4:
+                    implante_dental = ImplanteDental()
+                    implante_dental.set_fecha_implantacion(fecha_implantacion)
+                    implante_dental.set_medico(medico)
+                    implante_dental.set_estado(estado)
+                    implante_dental.set_fecha_revision(fecha_revision)
+                    implante_dental.set_fecha_mantenimiento(fecha_mantenimiento)
+                    implante_dental.set_forma(forma)
+                    implante_dental.set_sistema_fijacion(sistema_fijacion)
+                    implante_dental.set_material(material)
+                    paciente.agregar_implante(implante_dental)
+                    sistemita.añadir_paciente(paciente)
+                else:
+                    implante_cadera = ImplanteCadera()
+                    implante_cadera.set_fecha_implantacion(fecha_implantacion)
+                    implante_cadera.set_medico(medico)
+                    implante_cadera.set_estado(estado)
+                    implante_cadera.set_fecha_revision(fecha_revision)
+                    implante_cadera.set_fecha_mantenimiento(fecha_mantenimiento)
+                    implante_dental.set_forma(forma)
+                    implante_dental.set_sistema_fijacion(sistema_fijacion)
+                    implante_dental.set_material(material)
+                    paciente.agregar_implante(implante_dental)
+                    sistemita.añadir_paciente(paciente)
+            else:
+                print("Opción no válida")
+                continue
         elif menu == 2:
             pass
         elif menu == 3:
