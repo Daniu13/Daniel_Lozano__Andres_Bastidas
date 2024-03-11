@@ -9,6 +9,7 @@ class Implante:
         self.__estado = None
         self.__fecha_revision = None
         self.__fecha_mantenimiento = None
+        self.__id_implante = None
 
     def ver_fecha_implantacion(self):
         return self.__fecha_implantacion
@@ -24,6 +25,9 @@ class Implante:
 
     def ver_fecha_mantenimiento(self):
         return self.__fecha_mantenimiento
+    
+    def ver_id_implante(self):
+        return self.__id_implante
 
     def set_fecha_implantacion(self, fecha):
         self.__fecha_implantacion = fecha
@@ -40,11 +44,14 @@ class Implante:
     def set_fecha_mantenimiento(self, fecha):
         self.__fecha_mantenimiento = fecha
 
+    def set_id_implante(self, id):
+        self.__id_implante = id
+
 
 class Paciente:
     def __init__(self) -> None:
         self.__id = None
-        self.__implantes = set()
+        self.__implantes = dict()
 
     def ver_id(self):
         return self.__id
@@ -56,19 +63,20 @@ class Paciente:
         self.__id = id
 
     def agregar_implante(self, implante):
-        if self.verificar_implante(implante):
-            self.__implantes.add(implante)
+        if not self.verificar_implante(implante):
+            # self.__implantes.add(implante)
+            self.__implantes[implante.ver_id_implante()] = implante
             return True
         return False
 
     def eliminar_implante(self, implante):
         if self.verificar_implante(implante):
-            self.__implantes.discard(implante)
+            self.__implantes.pop(implante.ver_id_implante())
             return True
         return False
 
     def verificar_implante(self, implante):
-        if implante in self.__implantes:
+        if implante.ver_id_implante() in self.__implantes:
             return True
         return False
 
@@ -212,6 +220,13 @@ class Sistema:
             return True
         return False
 
+    def verificar_implante(self, id_implante):
+        for paciente in self.__inventario.values():
+            for implante in paciente.ver_implantes().values():
+                if implante.ver_id_implante() == id_implante:
+                    return True
+        return False
+
     def añadir_paciente(self, paciente):
         if not self.verificar_paciente(paciente):
             self.__inventario[paciente] = paciente.ver_implantes()
@@ -221,12 +236,9 @@ class Sistema:
             self.__inventario.pop(paciente)
 
     def ver_inventario(self):
-        conjuntos_implantes = [
-            paciente.ver_implantes() for paciente in self.__inventario.values()
-        ]
         lista_implantes = [
-            implante for implantes in conjuntos_implantes for implante in implantes
-        ]
+            implante for implantes in self.__inventario.values() for implante in implantes.values()
+            ]
         return lista_implantes
         # lista_implantes = []
         # for implantes in conjuntos_implantes:
@@ -337,7 +349,9 @@ def main():
                 print("Opción no válida")
                 continue
         elif menu == 2:
-            pass
+            id_implante = int(input("ID del implante: "))
+            if sistemita.verificar_implante(id_implante):
+                pass
         elif menu == 3:
             pass
         elif menu == 4:
