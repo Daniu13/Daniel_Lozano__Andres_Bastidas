@@ -1,4 +1,7 @@
-"Hallo"
+"""Estudiantes:
+Daniel Lozano
+Andrés Bastidas"""
+
 import datetime
 
 
