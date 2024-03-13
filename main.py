@@ -246,61 +246,70 @@ class Sistema:
         #     for implante in implantes:
         #         lista_implantes.append(implante)
 
+def validacion(mensaje, tipo_dato):
+    while True:
+        entrada = input(mensaje)
+        try:
+            valor_validado = tipo_dato(entrada)
+            return valor_validado
+        except ValueError:
+            print(f"Error: Por favor, ingresa un valor válido de tipo {tipo_dato.__name__}.")
 
 def main():
     sistemita = Sistema()
     while True:
-        menu = int(
-            input(
-                """\nIngrese una opción: 
+        menu = validacion(
+            """\nIngrese una opción: 
                        \n1- Ingresar implante 
                        \n2- Eliminar implante 
                        \n3- Editar implante 
                        \n4- Visualizar inventario
                        \n5- Salir 
-                       \nUsted ingresó la opción: """
-            )
+                       \nUsted ingresó la opción: """,
+            int
         )
         if menu == 1:
             paciente = Paciente()
-            id_paciente = int(input("ID del paciente: "))
+            id_paciente = validacion("ID del paciente: ", int)
             paciente.set_id(id_paciente)
-            que_tipo_implante = int(
-                input(
-                    """\nElija el tipo de implante:
+            que_tipo_implante = validacion(
+                """\nElija el tipo de implante:
                         \n1- Marcapasos
                         \n2- Stent coronario
                         \n3- Implante de rodilla
                         \n4- Implante dental
                         \n5- Implante de cadera
-                        \nOpción: """
-                )
+                        \nOpción: """,
+                int
             )
             fecha_implantacion = input("Fecha de implantación: ")
             medico = input("Médico: ")
             estado = input("Estado del implante: ")
             fecha_revision = input("Fecha de revisión: ")
             fecha_mantenimiento = input("Fecha de mantenimiento: ")
+            id_implante = int(input("ID del implante: "))
             if que_tipo_implante == 1:
-                num_electrodos = int(input("Número de electrodos: "))
-                es_alambrico = int(
-                    input("1- Alámbrico\n0- Inalámbrico\nElija una opción: ")
+                num_electrodos = validacion("Número de electrodos: ", int)
+                es_alambrico = validacion(
+                    "1- Alámbrico\n0- Inalámbrico\nElija una opción: ",
+                    int
                 )
-                frecuencia_estimulacion = float(input("Frecuencia de estimulación: "))
+                frecuencia_estimulacion = validacion("Frecuencia de estimulación: ", float)
                 marcapasos = Marcapasos()
                 marcapasos.set_fecha_implantacion(fecha_implantacion)
                 marcapasos.set_medico(medico)
                 marcapasos.set_estado(estado)
                 marcapasos.set_fecha_revision(fecha_revision)
                 marcapasos.set_fecha_mantenimiento(fecha_mantenimiento)
+                marcapasos.set_id_implante(id_implante)
                 marcapasos.set_num_eletrodos(num_electrodos)
                 marcapasos.set_es_alambrico(es_alambrico)
                 marcapasos.set_frecuencia_estimulacion(frecuencia_estimulacion)
                 paciente.agregar_implante(marcapasos)
                 sistemita.añadir_paciente(paciente)
             elif que_tipo_implante == 2:
-                longitud = float(input("Longitud: "))
-                diametro = float(input("Diámetro: "))
+                longitud = validacion("Longitud: ", float)
+                diametro = validacion("Diámetro: ", float)
                 material = input("Material: ")
                 stent_coronario = StentCoronario()
                 stent_coronario.set_fecha_implantacion(fecha_implantacion)
@@ -316,7 +325,7 @@ def main():
             elif que_tipo_implante == 3:
                 material = input("Material: ")
                 tipo_fijacion = input("Tipo de fijación: ")
-                tamaño = float(input("Tamaño: "))
+                tamaño = validacion("Tamaño: ", float)
                 implante_rodilla = ImplanteRodilla()
                 implante_rodilla.set_fecha_implantacion(fecha_implantacion)
                 implante_rodilla.set_medico(medico)
@@ -350,16 +359,16 @@ def main():
                     implante_cadera.set_estado(estado)
                     implante_cadera.set_fecha_revision(fecha_revision)
                     implante_cadera.set_fecha_mantenimiento(fecha_mantenimiento)
-                    implante_dental.set_forma(forma)
-                    implante_dental.set_sistema_fijacion(sistema_fijacion)
-                    implante_dental.set_material(material)
+                    implante_cadera.set_forma(forma)
+                    implante_cadera.set_sistema_fijacion(sistema_fijacion)
+                    implante_cadera.set_material(material)
                     paciente.agregar_implante(implante_dental)
                     sistemita.añadir_paciente(paciente)
             else:
                 print("Opción no válida")
                 continue
         elif menu == 2:
-            id_implante = int(input("ID del implante: "))
+            id_implante = validacion("ID del implante: ", int)
             for paciente, implante in sistemita.ver_inventario():
                 if implante.ver_id_implante() == id_implante:
                     if paciente.eliminar_implante(implante):
@@ -367,7 +376,7 @@ def main():
                     else:
                         print("No se encontró tal implante.")
         elif menu == 3:
-            id_implante = int(input("ID del implante: "))
+            id_implante = validacion("ID del implante: ", int)
             if sistemita.verificar_implante(id_implante):
                 for paciente, implante in sistemita.ver_inventario():
                     if implante.ver_id_implante() == id_implante:
@@ -378,21 +387,16 @@ def main():
                         new_fecha_mantenimiento = input(
                             "Nueva fecha de mantenimiento: "
                         )
+                        #El ID del implante es no editable
                         implante.set_fecha_implantacion(new_fecha_implantacion)
                         implante.set_medico(new_medico)
                         implante.set_estado(new_estado)
                         implante.set_fecha_revision(new_fecha_revision)
                         implante.set_fecha_mantenimiento(new_fecha_mantenimiento)
                         if isinstance(implante, Marcapasos):
-                            new_numero_electrodos = int(
-                                input("Nuevo número de electrodos: ")
-                            )
-                            new_es_alambrico = int(
-                                input("¿Es alámbrico? (1: Sí, 0: No): ")
-                            )
-                            new_frecuencia_estimulacion = float(
-                                input("Nueva frecuencia de estimulación: ")
-                            )
+                            new_numero_electrodos = validacion("Nuevo número de electrodos: ", int)
+                            new_es_alambrico = validacion("¿Es alámbrico? (1: Sí, 0: No): ", int)
+                            new_frecuencia_estimulacion = validacion("Nueva frecuencia de estimulación: ", float)
                             implante.set_num_eletrodos(new_numero_electrodos)
                             implante.set_es_alambrico(new_es_alambrico)
                             implante.set_frecuencia_estimulacion(
@@ -400,10 +404,8 @@ def main():
                             )
                             print("Editado exitosamente.")
                         elif isinstance(implante, StentCoronario):
-                            new_longitud = float(input("Nueva longitud: "))
-                            new_diametro = float(
-                                input("¿Es alámbrico? (1: Sí, 0: No): ")
-                            )
+                            new_longitud = validacion("Nueva longitud: ", float)
+                            new_diametro = validacion("Nuevo diametro: ", float)
                             new_material = input("Nuevo material: ")
                             implante.set_longitud(new_longitud)
                             implante.set_diametro(new_diametro)
@@ -412,7 +414,7 @@ def main():
                         elif isinstance(implante, ImplanteRodilla):
                             new_material = input("Nuevo material: ")
                             new_tipo_fijacion = input("Nuevo tipo de fijación: ")
-                            new_tamaño = float(input("Nuevo tamaño: "))
+                            new_tamaño = validacion("Nuevo tamaño: ", float)
                             implante.set_material(new_material)
                             implante.set_tipo_fijacion(new_tipo_fijacion)
                             implante.set_tamaño(new_tamaño)
@@ -429,7 +431,19 @@ def main():
                     else:
                         print("No se encontró el implante con el ID especificado.")
         elif menu == 4:
-            pass
+            for implante in sistemita.ver_inventario():
+                print("Lista de implantes: \n")
+                print(f'ID: {implante[1].ver_id_implante()}')
+                if isinstance(implante[1], Marcapasos):
+                    print("Tipo: Marcapasos\n\n")
+                elif isinstance(implante[1], StentCoronario):
+                    print("Tipo: Stent coronario\n\n")
+                elif isinstance(implante[1], ImplanteDental):
+                    print("Tipo: Implante dental\n\n")
+                elif isinstance(implante[1], ImplanteCadera):
+                    print("Tipo: Implante de cadera\n\n")
+                elif isinstance(implante[1], ImplanteRodilla):
+                    print("Tipo: Implante de rodilla\n\n")
         elif menu == 5:
             print("Saliendo del sistema...")
             break
