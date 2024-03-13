@@ -4,12 +4,12 @@ import datetime
 
 class Implante:
     def __init__(self) -> None:
-        self.__fecha_implantacion = None
-        self.__medico = None
-        self.__estado = None
-        self.__fecha_revision = None
-        self.__fecha_mantenimiento = None
-        self.__id_implante = None
+        self.__fecha_implantacion = ""
+        self.__medico = ""
+        self.__estado = ""
+        self.__fecha_revision = ""
+        self.__fecha_mantenimiento = ""
+        self.__id_implante = 0
 
     def ver_fecha_implantacion(self):
         return self.__fecha_implantacion
@@ -50,7 +50,7 @@ class Implante:
 
 class Paciente:
     def __init__(self) -> None:
-        self.__id = None
+        self.__id = 0
         self.__implantes = dict()
 
     def ver_id(self):
@@ -84,9 +84,9 @@ class Paciente:
 class Marcapasos(Implante):
     def __init__(self) -> None:
         super().__init__()
-        self.__num_electrodos = None
-        self.__es_inalambrico = None
-        self.__frecuencia_estimulacion = None
+        self.__num_electrodos = 0
+        self.__es_inalambrico = 0
+        self.__frecuencia_estimulacion = 0.0
 
     def ver_num_eletrodos(self):
         return self.__num_electrodos
@@ -110,9 +110,9 @@ class Marcapasos(Implante):
 class StentCoronario(Implante):
     def __init__(self) -> None:
         super().__init__()
-        self.__longitud = None
-        self.__diametro = None
-        self.__material = None
+        self.__longitud = 0.0
+        self.__diametro = 0.0
+        self.__material = ""
 
     def ver_longitud(self):
         return self.__longitud
@@ -136,9 +136,9 @@ class StentCoronario(Implante):
 class ImplanteDental(Implante):
     def __init__(self) -> None:
         super().__init__()
-        self.__forma = None
-        self.__sistema_fijacion = None
-        self.__material = None
+        self.__forma = ""
+        self.__sistema_fijacion = ""
+        self.__material = ""
 
     def ver_forma(self):
         return self.__forma
@@ -162,9 +162,9 @@ class ImplanteDental(Implante):
 class ImplanteCadera(Implante):
     def __init__(self) -> None:
         super().__init__()
-        self.__forma = None
-        self.__sistema_fijacion = None
-        self.__material = None
+        self.__forma = ""
+        self.__sistema_fijacion = ""
+        self.__material = ""
 
     def ver_forma(self):
         return self.__forma
@@ -188,9 +188,9 @@ class ImplanteCadera(Implante):
 class ImplanteRodilla(Implante):
     def __init__(self) -> None:
         super().__init__()
-        self.__material = None
-        self.__tipo_fijacion = None
-        self.__tamaño = None
+        self.__material = ""
+        self.__tipo_fijacion = ""
+        self.__tamaño = 0.0
 
     def ver_material(self):
         return self.__material
@@ -246,6 +246,13 @@ class Sistema:
         #     for implante in implantes:
         #         lista_implantes.append(implante)
 
+def validar_fecha(fecha_str):
+    try:
+        fecha = datetime.datetime.strptime(fecha_str, '%d/%m/%Y')
+        return fecha
+    except ValueError:
+        print("Valor incorrecto. Utiliza el formato DD/MM/YYYY.")
+
 def validacion(mensaje, tipo_dato):
     while True:
         entrada = input(mensaje)
@@ -282,11 +289,13 @@ def main():
                         \nOpción: """,
                 int
             )
-            fecha_implantacion = input("Fecha de implantación: ")
+            fecha_implantacion = input("Fecha de implantación (DD/MM/YYYY): ")
+            fecha_implantacion = validar_fecha(fecha_implantacion)
             medico = input("Médico: ")
             estado = input("Estado del implante: ")
             fecha_revision = input("Fecha de revisión: ")
             fecha_mantenimiento = input("Fecha de mantenimiento: ")
+            fecha_mantenimiento = validar_fecha(fecha_mantenimiento)
             id_implante = int(input("ID del implante: "))
             if que_tipo_implante == 1:
                 num_electrodos = validacion("Número de electrodos: ", int)
@@ -381,12 +390,14 @@ def main():
                 for paciente, implante in sistemita.ver_inventario():
                     if implante.ver_id_implante() == id_implante:
                         new_fecha_implantacion = input("Nueva fecha de implantación: ")
+                        new_fecha_implantacion = validar_fecha(new_fecha_implantacion)
                         new_medico = input("Nuevo médico: ")
                         new_estado = input("Nuevo estado del implante: ")
                         new_fecha_revision = input("Nueva fecha de revisión: ")
                         new_fecha_mantenimiento = input(
                             "Nueva fecha de mantenimiento: "
                         )
+                        new_fecha_mantenimiento = validar_fecha(new_fecha_mantenimiento)
                         #El ID del implante es no editable
                         implante.set_fecha_implantacion(new_fecha_implantacion)
                         implante.set_medico(new_medico)
